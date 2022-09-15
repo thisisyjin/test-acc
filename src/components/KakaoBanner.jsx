@@ -8,7 +8,7 @@ const KakaoBannerBlock = styled.div`
 
 const KakaoBannerBtn = styled.a`
   display: block;
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.7);
   color: #fff;
   border-radius: 100px;
   font-size: 16px;

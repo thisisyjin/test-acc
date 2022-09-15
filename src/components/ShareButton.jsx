@@ -9,7 +9,7 @@ const ShareButtonBlock = styled.div`
 
 const StyledShare = styled.div`
   cursor: pointer;
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.7);
   width: 65px;
   height: 65px;
   border-radius: 50%;

@@ -513,8 +513,8 @@ const Home = () => {
             )}
             {loading && (
               <div className="loading">
-                <div class="loadingio-spinner-ellipsis-e4bv9du3r5h">
-                  <div class="ldio-s90hw9ncs7a">
+                <div className="loadingio-spinner-ellipsis-e4bv9du3r5h">
+                  <div className="ldio-s90hw9ncs7a">
                     <div></div>
                     <div></div>
                     <div></div>
