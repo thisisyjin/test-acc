@@ -58,6 +58,8 @@ const HomeBlock = styled.div`
   select {
     position: relative;
     -webkit-appearance: none;
+    background-color: #fff;
+    color: #000;
     width: 150px;
     border: none;
     margin-right: 10px;
