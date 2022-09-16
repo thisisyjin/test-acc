@@ -92,15 +92,18 @@ const SearchTest = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+    if (value.length < 2) {
+      alert('2자 이상 입력하세요');
+      return;
+    }
     // 검색어 필터링
-    if (value) {
-      const result = datas.filter((data) => {
-        return data.name.trim().includes(value.trim()) ? data.name : null;
-      });
-      setResults(result);
-      if (!result.length) {
-        setResults(false);
-      }
+
+    const result = datas.filter((data) => {
+      return data.name.trim().includes(value.trim()) ? data.name : null;
+    });
+    setResults(result);
+    if (!result.length) {
+      setResults(false);
     }
   };
 
@@ -132,7 +135,6 @@ const SearchTest = () => {
         <input
           type="text"
           value={value}
-          required
           onChange={onChangeInput}
           placeholder="병원명을 입력하세요."
         />
