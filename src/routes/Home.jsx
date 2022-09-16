@@ -68,9 +68,9 @@ const HomeBlock = styled.div`
     box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2);
     padding-left: 20px;
     background-image: url(${expand});
-    background-position: right;
+    background-position: 95%;
     background-repeat: no-repeat;
-    background-size: 25px;
+    background-size: 20px;
   }
 
   select:last-child {
