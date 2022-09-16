@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import KakaoBanner from '../components/KakaoBanner';
 import ShareButton from '../components/ShareButton';
+import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -76,6 +78,9 @@ const HomeBlock = styled.div`
       margin-left: 10px;
     }
     margin-bottom: 25px;
+  }
+  form {
+    display: flex;
   }
 
   input {
@@ -314,19 +319,34 @@ const Home = () => {
     setActiveHos(true);
   };
 
+  // 만약 subArea가 바뀌면 -> 검색창 리셋되고 api 다시 요청해야 함.
+  useEffect(() => {
+    setInput('');
+    setSearch('');
+    setHospital('');
+  }, [subArea]);
+
   const onSelectHos = (e) => {
     // 둘다 active 꺼버림
     setActiveArea(false);
     setActiveHos(false);
-    setHospital('아프지마 정형외과');
+    const innerT = e.target.parentNode.innerText;
+    const hosName = innerT.slice(0, innerT.indexOf('\n'));
+    setHospital(hosName);
   };
 
   const onChangeInput = (e) => {
     setInput(e.target.value);
   };
-  const onClickSearch = () => {
+  const onClickSearch = (e) => {
+    e.preventDefault();
+    if (input.length < 2) {
+      alert('최소 2자 입력하세요');
+      return;
+    }
     setLoading(true);
     getLoading();
+    // 만약 search가 ''이면 ->
   };
 
   const getLoading = () => {
@@ -335,6 +355,7 @@ const Home = () => {
       console.log('api 요청');
       setSearch(input);
       setLoading(false);
+      // search가 ''이면 에러창 띄우기
     }, 1300);
   };
 
@@ -344,6 +365,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>step 1 - 병의원찾기</title>
+      </Helmet>
       <HomeBlock>
         <h1>병의원 찾기 - test</h1>
         <div className="button-area">
@@ -396,9 +420,9 @@ const Home = () => {
               </option>
               <option value="강서구">강서구</option>
               <option value="노원구">노원구</option>
-              <option value="강서구">강서구</option>
-              <option value="강서구">강서구</option>
-              <option value="강서구">강서구</option>
+              <option value="강남구">강남구</option>
+              <option value="강북구">강북구</option>
+              <option value="광진구">광진구</option>
               <option value="강서구">강서구</option>
               <option value="강서구">강서구</option>
               <option value="강서구">강서구</option>
@@ -418,13 +442,15 @@ const Home = () => {
         {isActiveHos && (
           <div className="hos-wrap">
             <div className="input-grp">
-              <input
-                type="text"
-                placeholder="병원명을 입력하세요"
-                value={input}
-                onChange={onChangeInput}
-              />
-              <button onClick={onClickSearch}>검색</button>
+              <form onSubmit={onClickSearch}>
+                <input
+                  type="text"
+                  placeholder="병원명을 입력하세요"
+                  value={input}
+                  onChange={onChangeInput}
+                />
+                <button>검색</button>
+              </form>
             </div>
             {search && (
               <div className="search-result">
@@ -435,7 +461,7 @@ const Home = () => {
                       서울시 강서구 강서동 123-4567
                     </span>
                   </div>
-                  <button>선택</button>
+                  <button onClick={onSelectHos}>선택</button>
                 </div>
                 <div className="hos-info">
                   <div className="name-wrap">
@@ -444,7 +470,7 @@ const Home = () => {
                       서울시 강서구 강서동 123-4567
                     </span>
                   </div>
-                  <button>선택</button>
+                  <button onClick={onSelectHos}>선택</button>
                 </div>
                 <div className="hos-info">
                   <div className="name-wrap">
@@ -453,15 +479,6 @@ const Home = () => {
                       서울시 강서구 강서동 123-4567
                     </span>
                   </div>
-                  <button>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정형외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
                   <button onClick={onSelectHos}>선택</button>
                 </div>
                 <div className="hos-info">
@@ -502,7 +519,16 @@ const Home = () => {
                 </div>
                 <div className="hos-info">
                   <div className="name-wrap">
-                    아프지마 정형외과
+                    아프지마 치과
+                    <span className="address">
+                      서울시 강서구 강서동 123-4567
+                    </span>
+                  </div>
+                  <button onClick={onSelectHos}>선택</button>
+                </div>
+                <div className="hos-info">
+                  <div className="name-wrap">
+                    아프지마 정신과
                     <span className="address">
                       서울시 강서구 강서동 123-4567
                     </span>
