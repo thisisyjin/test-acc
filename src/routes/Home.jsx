@@ -392,13 +392,17 @@ const Home = () => {
     navigate('/upload');
   };
 
+  const nextPage = () => {
+    navigate('/search');
+  };
+
   return (
     <>
       <Helmet>
         <title>step 1 - 병의원찾기</title>
       </Helmet>
       <HomeBlock>
-        <h1>병의원 찾기 - test</h1>
+        <h1 onClick={nextPage}>병의원 찾기 - test</h1>
         <div className="button-area">
           <button
             className="next"
