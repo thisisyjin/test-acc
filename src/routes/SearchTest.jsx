@@ -10,6 +10,7 @@ const SearchTestBlock = styled.div`
     padding: 0 10px;
   }
   form {
+    width: 100%;
     display: flex;
     gap: 10px;
     padding: 10px;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
+import expand from '../assets/expand.svg';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -55,6 +56,8 @@ const HomeBlock = styled.div`
   }
 
   select {
+    position: relative;
+    -webkit-appearance: none;
     width: 150px;
     border: none;
     margin-right: 10px;
@@ -62,6 +65,10 @@ const HomeBlock = styled.div`
     border-radius: 5px;
     box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2);
     padding-left: 20px;
+    background-image: url(${expand});
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 25px;
   }
 
   select:last-child {
