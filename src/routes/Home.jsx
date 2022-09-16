@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
 import expand from '../assets/expand.svg';
 
 const HomeBlock = styled.div`
@@ -322,6 +321,8 @@ const HomeBlock = styled.div`
 const Home = () => {
   const navigate = useNavigate();
 
+  const inputRef = useRef(null);
+
   const [isActiveArea, setActiveArea] = useState(true);
   const [isActiveHos, setActiveHos] = useState(!isActiveArea);
   const [mainArea, setMainArea] = useState();
@@ -377,6 +378,7 @@ const Home = () => {
   };
   const onClickSearch = (e) => {
     e.preventDefault();
+    inputRef.current.blur();
     if (input.length < 2) {
       alert('최소 2자 입력하세요');
       return;
@@ -510,6 +512,7 @@ const Home = () => {
                 placeholder="병원명을 입력하세요"
                 value={input}
                 onChange={onChangeInput}
+                ref={inputRef}
               />
               <button>검색</button>
             </form>
