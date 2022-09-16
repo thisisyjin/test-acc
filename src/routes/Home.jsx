@@ -362,6 +362,7 @@ const Home = () => {
     setInput('');
     setSearch('');
     setHospital('');
+    if (inputRef.current) inputRef.current.focus();
   }, [subArea]);
 
   const onSelectHos = (e) => {
