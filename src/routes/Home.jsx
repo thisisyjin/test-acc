@@ -73,11 +73,10 @@ const HomeBlock = styled.div`
     justify-content: center;
     margin-bottom: 25px;
     padding: 10px;
-
+    gap: 10px;
     input {
       flex: 4;
     }
-
     button {
       font-size: 16px;
       flex: 1;
@@ -441,6 +440,12 @@ const Home = () => {
               <option value="서울시">서울시</option>
               <option value="서울시">서울시</option>
               <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
+              <option value="서울시">서울시</option>
             </select>
             <select
               name="main"
@@ -457,9 +462,25 @@ const Home = () => {
               <option value="강북구">강북구</option>
               <option value="광진구">광진구</option>
               <option value="강서구">강서구</option>
+              <option value="노원구">노원구</option>
+              <option value="강남구">강남구</option>
+              <option value="강북구">강북구</option>
+              <option value="광진구">광진구</option>
               <option value="강서구">강서구</option>
+              <option value="노원구">노원구</option>
+              <option value="강남구">강남구</option>
+              <option value="강북구">강북구</option>
+              <option value="광진구">광진구</option>
               <option value="강서구">강서구</option>
+              <option value="노원구">노원구</option>
+              <option value="강남구">강남구</option>
+              <option value="강북구">강북구</option>
+              <option value="광진구">광진구</option>
               <option value="강서구">강서구</option>
+              <option value="노원구">노원구</option>
+              <option value="강남구">강남구</option>
+              <option value="강북구">강북구</option>
+              <option value="광진구">광진구</option>
             </select>
           </div>
         )}

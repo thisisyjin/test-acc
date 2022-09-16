@@ -17,17 +17,17 @@ const SearchTestBlock = styled.div`
   input {
     font-size: 16px;
     display: block;
-    flex: 5;
+    flex: 4;
     border: none;
     background-color: #eee;
     border-radius: 4px;
-    padding: 12px 30px;
+    padding: 12px 20px;
   }
   button.search {
     flex: 1;
     display: block;
     border-radius: 4px;
-    padding: 12px;
+    padding: 10px;
     background-color: royalblue;
     color: #fff;
   }
