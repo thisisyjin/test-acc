@@ -15,6 +15,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/hi" element={<NewHome />} />
         <Route path="/area/main" element={<MainAreaSelect />} />
         <Route path="/area/sub" element={<SubAreaSelect />} />
         <Route path="/area/search" element={<AreaSearchForm />} />

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
-import KakaoBanner from '../components/KakaoBanner';
-import ShareButton from '../components/ShareButton';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
+import Select from '../components/Select';
+import { main, sub } from '../assets/area';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -70,17 +70,22 @@ const HomeBlock = styled.div`
     margin-right: 0;
   }
 
-  .input-grp {
-    display: flex;
-    width: 340px;
-    margin: 0 auto;
-    button {
-      margin-left: 10px;
-    }
-    margin-bottom: 25px;
-  }
   form {
     display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    input {
+      flex: 4;
+      margin-left: 10px;
+    }
+
+    button {
+      font-size: 16px;
+      flex: 1;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
   }
 
   input {
@@ -88,14 +93,15 @@ const HomeBlock = styled.div`
     display: block;
     background-color: #eee;
     border-radius: 5px;
-    width: 280px;
     padding-left: 20px;
     font-size: 16px;
+    width: 200px;
   }
 
   button {
     display: block;
-    width: 50px;
+    min-width: 60px;
+    width: 20%;
     background-color: royalblue;
     color: #fff;
     border-radius: 4px;
@@ -113,7 +119,7 @@ const HomeBlock = styled.div`
     margin-bottom: 6px;
 
     button {
-      padding: 6px;
+      padding: 10px 0;
     }
   }
 
@@ -128,12 +134,14 @@ const HomeBlock = styled.div`
   .acc-title {
     position: relative;
     padding: 16px 20px;
-    border-top: 2px solid #999;
+    border-top: 2px solid #aaa;
     color: #666;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: all 0.3s;
+    font-weight: 500;
   }
 
   .area-info {
@@ -159,11 +167,32 @@ const HomeBlock = styled.div`
     top: 9px;
   }
 
+  .acc-title::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: royalblue;
+    transition: 0.25s;
+  }
+
   .acc-title.active {
     padding: 16px 20px;
-    border-top: 2px solid royalblue;
+    /* border-top: 2px solid royalblue; */
     margin-bottom: 10px;
     color: royalblue;
+  }
+
+  .acc-title.active.acc-title::before {
+    width: 100%;
+  }
+
+  .acc-title.active.acc-title::after {
+    color: royalblue;
+    transform: scaleY(-1) translateY(-10px);
   }
 
   .loading {
@@ -390,6 +419,7 @@ const Home = () => {
         </h3>{' '}
         {isActiveArea && (
           <div className="area-wrap">
+            <Select desc="시/도 선택" options={main} />
             <select
               name="main"
               id="main"
@@ -441,17 +471,15 @@ const Home = () => {
         </h3>
         {isActiveHos && (
           <div className="hos-wrap">
-            <div className="input-grp">
-              <form onSubmit={onClickSearch}>
-                <input
-                  type="text"
-                  placeholder="병원명을 입력하세요"
-                  value={input}
-                  onChange={onChangeInput}
-                />
-                <button>검색</button>
-              </form>
-            </div>
+            <form onSubmit={onClickSearch}>
+              <input
+                type="text"
+                placeholder="병원명을 입력하세요"
+                value={input}
+                onChange={onChangeInput}
+              />
+              <button>검색</button>
+            </form>
             {search && (
               <div className="search-result">
                 <div className="hos-info">
@@ -553,10 +581,6 @@ const Home = () => {
           </div>
         )}
       </HomeBlock>
-      <div className="banners">
-        <KakaoBanner />
-        <ShareButton />
-      </div>
     </>
   );
 };

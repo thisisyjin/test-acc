@@ -1,4 +1,4 @@
-const main = [
+export const main = [
   '서울특별시',
   '부산광역시',
   '대구광역시',
@@ -18,7 +18,7 @@ const main = [
   '제주특별자치도',
 ];
 
-const sub = [
+export const sub = [
   [
     '종로구',
     '중구',
@@ -252,16 +252,15 @@ const sub = [
   ['제주시', '서귀포시'],
 ];
 
-const total = [];
+export const total = [];
 for (let i = 0; i < sub.length; i++) {
   for (let j = 0; j < sub[i].length; j++) {
     total.push(`${main[i]} ${sub[i][j]}`);
   }
 }
-console.log(total);
 
 // Array
-const totalArea = [
+export const totalArea = [
   '서울특별시 종로구',
   '서울특별시 중구',
   '서울특별시 용산구',
