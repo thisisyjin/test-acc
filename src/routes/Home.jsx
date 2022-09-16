@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
-import Select from '../components/Select';
-import { main, sub } from '../assets/area';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -74,17 +72,15 @@ const HomeBlock = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
+    padding: 10px;
 
     input {
       flex: 4;
-      margin-left: 10px;
     }
 
     button {
       font-size: 16px;
       flex: 1;
-      margin-left: 10px;
-      margin-right: 10px;
     }
   }
 
@@ -117,6 +113,10 @@ const HomeBlock = styled.div`
     padding: 15px;
     padding-left: 12px;
     margin-bottom: 6px;
+
+    &:last-child {
+      margin-bottom: 40px;
+    }
 
     button {
       padding: 10px 0;

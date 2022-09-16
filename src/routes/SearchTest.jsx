@@ -17,13 +17,14 @@ const SearchTestBlock = styled.div`
   input {
     font-size: 16px;
     display: block;
-    flex: 4;
+    flex: 5;
     border: none;
     background-color: #eee;
     border-radius: 4px;
     padding: 12px 30px;
   }
   button.search {
+    flex: 1;
     display: block;
     border-radius: 4px;
     padding: 12px;
@@ -34,16 +35,25 @@ const SearchTestBlock = styled.div`
   .hos-info-wrap {
     height: 400px;
     overflow: auto;
+
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
   }
 
   .hos-info {
-    background-color: #f9f7ed;
+    background-color: #f3f3f3;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #666;
     gap: 10px;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 12px;
+    }
+
     span {
       display: block;
       color: #666;
@@ -57,6 +67,16 @@ const SearchTestBlock = styled.div`
       color: #fff;
       border-radius: 4px;
     }
+  }
+
+  .no-data {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    color: royalblue;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -75,9 +95,12 @@ const SearchTest = () => {
     // 검색어 필터링
     if (value) {
       const result = datas.filter((data) => {
-        return data.name.includes(value.trim()) ? data.name : null;
+        return data.name.trim().includes(value.trim()) ? data.name : null;
       });
       setResults(result);
+      if (!result.length) {
+        setResults(false);
+      }
     }
   };
 
@@ -128,6 +151,9 @@ const SearchTest = () => {
               </button>
             </div>
           ))}
+        {results === false && (
+          <div className="no-data">검색하신 병의원 정보가 없습니다.</div>
+        )}
       </div>
     </SearchTestBlock>
   );
