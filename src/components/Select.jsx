@@ -48,7 +48,13 @@ const StyledSelect = styled.div`
   }
 `;
 
-const Select = ({ options, desc = '값을 선택하세요', setNumber, number }) => {
+const Select = ({
+  options,
+  desc = '값을 선택하세요',
+  setNumber,
+  number,
+  second,
+}) => {
   const [showOption, setShowOption] = useState(false);
   const [selectedValue, setSelectedValue] = useState(desc);
   const [filterOptions, setFilterOptions] = useState(options);

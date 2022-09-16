@@ -419,7 +419,6 @@ const Home = () => {
         </h3>{' '}
         {isActiveArea && (
           <div className="area-wrap">
-            <Select desc="시/도 선택" options={main} />
             <select
               name="main"
               id="main"

@@ -6,6 +6,7 @@ import ImgSaved from './routes/ImgSaved';
 import ImgUpload from './routes/ImgUpload';
 import MainAreaSelect from './routes/MainAreaSelect';
 import NewHome from './routes/NewHome';
+import SearchTest from './routes/SearchTest';
 import SubAreaSelect from './routes/SubAreaSelect';
 import UserInfoForm from './routes/UserInfoForm';
 import UserInfoSaved from './routes/UserInfoSaved';
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hi" element={<NewHome />} />
+        <Route path="/search" element={<SearchTest />} />
         <Route path="/area/main" element={<MainAreaSelect />} />
         <Route path="/area/sub" element={<SubAreaSelect />} />
         <Route path="/area/search" element={<AreaSearchForm />} />

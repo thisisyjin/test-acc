@@ -1,0 +1,48 @@
+{
+  "row": {
+    "result": {
+      "hospital": [
+        {
+          "name": "아프지마 내과",
+          "address": "서울시 강서구 강서동 123-4567",
+          "registered": true
+        },
+        {
+          "name": "아프지마 피부과",
+          "address": "서울시 강서구 강서동 234-4567",
+          "registered": false
+        },
+        {
+          "name": "아프지마 정형외과",
+          "address": "서울시 강서구 강서동 345-4567",
+          "registered": false
+        },
+        {
+          "name": "아프지마 이비인후과",
+          "address": "서울시 강서구 강서동 456-4567",
+          "registered": true
+        },
+        {
+          "name": "아프지마 치과",
+          "address": "서울시 강서구 강서동 567-4567",
+          "registered": false
+        },
+        {
+          "name": "아프지마 가정의학과",
+          "address": "서울시 강서구 강서동 678-4567",
+          "registered": false
+        },
+        {
+          "name": "아프지마 외과",
+          "address": "서울시 강서구 강서동 789-4567",
+          "registered": false
+        },
+        {
+          "name": "아프지마 정신과",
+          "address": "서울시 강서구 강서동 910-4567",
+          "registered": false
+        }
+      ]
+    }
+  }
+}
