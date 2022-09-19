@@ -37,15 +37,34 @@ const SearchTestBlock = styled.div`
   }
 
   .hos-info-wrap {
+    position: relative;
     height: 400px;
     overflow: auto;
-
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
   }
 
+  .loading {
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    // 굳이 안가려져도 되는건지?
+
+    .loadingio-spinner-ellipsis-e4bv9du3r5h {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .hos-info {
-    background-color: #f3f3f3;
+    background-color: #fefefe;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,6 +101,101 @@ const SearchTestBlock = styled.div`
     align-items: center;
     justify-content: center;
   }
+
+  // animation - loading
+  @keyframes ldio-s90hw9ncs7a {
+    0% {
+      transform: translate(6px, 40px) scale(0);
+    }
+    25% {
+      transform: translate(6px, 40px) scale(0);
+    }
+    50% {
+      transform: translate(6px, 40px) scale(1);
+    }
+    75% {
+      transform: translate(40px, 40px) scale(1);
+    }
+    100% {
+      transform: translate(74px, 40px) scale(1);
+    }
+  }
+  @keyframes ldio-s90hw9ncs7a-r {
+    0% {
+      transform: translate(74px, 40px) scale(1);
+    }
+    100% {
+      transform: translate(74px, 40px) scale(0);
+    }
+  }
+  @keyframes ldio-s90hw9ncs7a-c {
+    0% {
+      background: #457dff;
+    }
+    25% {
+      background: #457dff;
+    }
+    50% {
+      background: #457dff;
+    }
+    75% {
+      background: #457dff;
+    }
+    100% {
+      background: #457dff;
+    }
+  }
+  .ldio-s90hw9ncs7a div {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(40px, 40px) scale(1);
+    background: #457dff;
+    animation: ldio-s90hw9ncs7a 2.272727272727273s infinite
+      cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  .ldio-s90hw9ncs7a div:nth-child(1) {
+    background: #457dff;
+    transform: translate(74px, 40px) scale(1);
+    animation: ldio-s90hw9ncs7a-r 0.5681818181818182s infinite
+        cubic-bezier(0, 0.5, 0.5, 1),
+      ldio-s90hw9ncs7a-c 2.272727272727273s infinite step-start;
+  }
+  .ldio-s90hw9ncs7a div:nth-child(2) {
+    animation-delay: -0.5681818181818182s;
+    background: #457dff;
+  }
+  .ldio-s90hw9ncs7a div:nth-child(3) {
+    animation-delay: -1.1363636363636365s;
+    background: #457dff;
+  }
+  .ldio-s90hw9ncs7a div:nth-child(4) {
+    animation-delay: -1.7045454545454546s;
+    background: #457dff;
+  }
+  .ldio-s90hw9ncs7a div:nth-child(5) {
+    animation-delay: -2.272727272727273s;
+    background: #457dff;
+  }
+  .loadingio-spinner-ellipsis-e4bv9du3r5h {
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+  .ldio-s90hw9ncs7a {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(0.9);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-s90hw9ncs7a div {
+    box-sizing: content-box;
+  }
 `;
 
 const SearchTest = () => {
@@ -103,28 +217,40 @@ const SearchTest = () => {
       return;
     }
     // 검색어 필터링
+    getAPIrequest();
+  };
 
-    const result = datas.filter((data) => {
-      return data.name.trim().includes(value.trim()) ? data.name : null;
-    });
-    setResults(result);
-    if (!result.length) {
-      setResults(false);
+  // useEffect(() => {
+  //   getAPIrequest();
+  // }, []);
+
+  const getAPIrequest = async () => {
+    console.log('api GET 요청');
+    setLoading(true);
+    try {
+      const hosList = await axios.get(
+        'https://22144ce6-c7da-4ad3-ab85-ce22c7ae5b8a.mock.pstmn.io/search',
+        // API 호출 - 병원정보
+      );
+      setDatas(hosList.data.row.result.hospital); // [{1}, {2}, {3}, ...]
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   useEffect(() => {
-    getAPIrequest();
-  }, []);
-
-  const getAPIrequest = async () => {
-    console.log('api GET 요청');
-    const hosList = await axios.get(
-      'https://22144ce6-c7da-4ad3-ab85-ce22c7ae5b8a.mock.pstmn.io/search',
-      // API 호출 - 병원정보 +
-    );
-    setDatas(hosList.data.row.result.hospital); // [{1}, {2}, {3}, ...]
-  };
+    if (datas) {
+      const result = datas.filter((data) => {
+        return data.name.trim().includes(value.trim()) ? data.name : null;
+      });
+      setResults(result);
+      if (!result.length) {
+        setResults(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datas]);
 
   const onSelectHos = (registered) => {
     if (registered) alert('이미 등록된 병원입니다.');
@@ -162,8 +288,21 @@ const SearchTest = () => {
         {results === false && (
           <div className="no-data">검색하신 병의원 정보가 없습니다.</div>
         )}
+
+        {loading && (
+          <div className="loading">
+            <div className="loadingio-spinner-ellipsis-e4bv9du3r5h">
+              <div className="ldio-s90hw9ncs7a">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      {loading && <div className="loading">Loading ...</div>}
     </SearchTestBlock>
   );
 };

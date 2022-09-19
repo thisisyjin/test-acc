@@ -359,7 +359,7 @@ const Home = () => {
     // setSubArea
     setSubArea(e.target.value);
 
-    // setActive
+    // setActive - 아코디언 닫기
     setActiveArea(false);
     setActiveHos(true);
   };
@@ -404,7 +404,7 @@ const Home = () => {
       setSearch(input);
       setLoading(false);
       // search가 ''이면 에러창 띄우기
-    }, 1300);
+    }, 1200);
   };
 
   const onClickNext = () => {
