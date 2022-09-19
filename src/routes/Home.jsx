@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
 import expand from '../assets/expand.svg';
+import { main, sub } from '../assets/area';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -222,7 +223,7 @@ const HomeBlock = styled.div`
     overflow-y: auto;
   }
 
-  // animation
+  // animation - loading
   @keyframes ldio-s90hw9ncs7a {
     0% {
       transform: translate(6px, 40px) scale(0);
@@ -377,6 +378,7 @@ const Home = () => {
   const onChangeInput = (e) => {
     setInput(e.target.value);
   };
+
   const onClickSearch = (e) => {
     e.preventDefault();
     inputRef.current.blur();
@@ -429,7 +431,9 @@ const Home = () => {
         >
           1/ 지역 선택
           {!isActiveArea && mainArea && subArea && (
-            <span className="area-info">{`${mainArea} ${subArea}`}</span>
+            <span className="area-info">{`${mainArea} ${
+              subArea === '-' ? '' : subArea
+            }`}</span>
           )}
         </h3>{' '}
         {isActiveArea && (
@@ -439,60 +443,33 @@ const Home = () => {
               id="main"
               onChange={onSelectMain}
               value={mainArea}
+              defaultValue="ph"
             >
-              <option selected disabled>
+              <option disabled value="ph">
                 시/도 선택
               </option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
-              <option value="서울시">서울시</option>
+              {main.map((m, i) => (
+                <option value={m} key={`main-${i}`}>
+                  {m}
+                </option>
+              ))}
             </select>
             <select
               name="main"
               id="main"
               onChange={onSelectSub}
               value={subArea}
+              defaultValue="ph"
             >
-              <option selected disabled>
+              <option disabled value="ph">
                 시/군/구 선택
               </option>
-              <option value="강서구">강서구</option>
-              <option value="노원구">노원구</option>
-              <option value="강남구">강남구</option>
-              <option value="강북구">강북구</option>
-              <option value="광진구">광진구</option>
-              <option value="강서구">강서구</option>
-              <option value="노원구">노원구</option>
-              <option value="강남구">강남구</option>
-              <option value="강북구">강북구</option>
-              <option value="광진구">광진구</option>
-              <option value="강서구">강서구</option>
-              <option value="노원구">노원구</option>
-              <option value="강남구">강남구</option>
-              <option value="강북구">강북구</option>
-              <option value="광진구">광진구</option>
-              <option value="강서구">강서구</option>
-              <option value="노원구">노원구</option>
-              <option value="강남구">강남구</option>
-              <option value="강북구">강북구</option>
-              <option value="광진구">광진구</option>
-              <option value="강서구">강서구</option>
-              <option value="노원구">노원구</option>
-              <option value="강남구">강남구</option>
-              <option value="강북구">강북구</option>
-              <option value="광진구">광진구</option>
+              {mainArea &&
+                sub[main.indexOf(mainArea)].map((s, i) => (
+                  <option value={s} key={`sub-${i}`}>
+                    {s}
+                  </option>
+                ))}
             </select>
           </div>
         )}
