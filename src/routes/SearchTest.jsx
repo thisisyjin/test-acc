@@ -23,6 +23,9 @@ const SearchTestBlock = styled.div`
     background-color: #eee;
     border-radius: 4px;
     padding: 12px 20px;
+    &:focus {
+      background-color: #f4f2e0;
+    }
   }
   button.search {
     flex: 1;
@@ -86,6 +89,8 @@ const SearchTest = () => {
   const [value, setValue] = useState('');
   const [datas, setDatas] = useState(null);
   const [results, setResults] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const onChangeInput = (e) => {
     setValue(e.target.value);
@@ -158,6 +163,7 @@ const SearchTest = () => {
           <div className="no-data">검색하신 병의원 정보가 없습니다.</div>
         )}
       </div>
+      {loading && <div className="loading">Loading ...</div>}
     </SearchTestBlock>
   );
 };

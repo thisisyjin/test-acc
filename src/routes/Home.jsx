@@ -347,6 +347,12 @@ const Home = () => {
 
   const onSelectMain = (e) => {
     setMainArea(e.target.value);
+    // 세종시 예외처리
+    if (e.target.value === '세종특별자치시') {
+      setActiveArea(false);
+      setActiveHos(true);
+      setSubArea('-');
+    }
   };
 
   const onSelectSub = (e) => {
@@ -442,8 +448,8 @@ const Home = () => {
               name="main"
               id="main"
               onChange={onSelectMain}
-              value={mainArea}
               defaultValue="ph"
+              value={mainArea}
             >
               <option disabled value="ph">
                 시/도 선택
@@ -455,11 +461,11 @@ const Home = () => {
               ))}
             </select>
             <select
-              name="main"
-              id="main"
+              name="sub"
+              id="sub"
               onChange={onSelectSub}
-              value={subArea}
               defaultValue="ph"
+              value={subArea}
             >
               <option disabled value="ph">
                 시/군/구 선택
