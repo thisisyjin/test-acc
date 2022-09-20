@@ -306,6 +306,10 @@ const SearchTest = () => {
     navigate('/');
   };
 
+  const goTestPage = () => {
+    navigate('/typo');
+  };
+
   useEffect(() => {
     setTimeout(() => {
       inputRef.current.focus();
@@ -315,7 +319,7 @@ const SearchTest = () => {
   return (
     <SearchTestBlock>
       <div className="header-wrap">
-        <h1>병의원 검색 Logic</h1>
+        <h1 onClick={goTestPage}>병의원 검색 Logic</h1>
         <div className="area-info">
           서울시 강서구 <img src={Change} alt="change" onClick={prevPage} />
         </div>
