@@ -325,7 +325,6 @@ const SearchTest = () => {
           onChange={onChangeInput}
           placeholder="병원명을 입력하세요."
           ref={inputRef}
-          autoFocus
         />
         <button className="search">검색</button>
       </form>
