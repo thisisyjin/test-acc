@@ -1,9 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import axios from '../../node_modules/axios/index';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 
+import Change from '../assets/change.svg';
+
 const SearchTestBlock = styled.div`
+  background-color: #fff;
+  min-height: 100%;
+  border-bottom: none;
+  border-radius: 30px 30px 0 0;
+  padding: 10px;
+  height: 100%;
+  animation-name: pop-up-bg;
+  animation-duration: 500ms;
+
+  @keyframes pop-up-bg {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: none;
+    }
+  }
+
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    .area-info {
+      color: #888;
+      font-size: 15px;
+      margin-right: 10px;
+
+      img {
+        background-color: #888;
+        border-radius: 50%;
+        position: relative;
+        top: 6px;
+      }
+    }
+  }
+
   h1 {
     font-size: 20px;
     font-weight: 500;
@@ -13,7 +54,7 @@ const SearchTestBlock = styled.div`
     width: 100%;
     display: flex;
     gap: 10px;
-    padding: 10px;
+    padding: 10px 0;
   }
   input {
     font-size: 16px;
@@ -38,7 +79,6 @@ const SearchTestBlock = styled.div`
 
   .hos-info-wrap {
     position: relative;
-    height: 400px;
     overflow: auto;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -200,6 +240,8 @@ const SearchTestBlock = styled.div`
 
 const SearchTest = () => {
   const navigate = useNavigate();
+  const inputRef = useRef();
+
   const [value, setValue] = useState('');
   const [datas, setDatas] = useState(null);
   const [results, setResults] = useState(null);
@@ -260,15 +302,31 @@ const SearchTest = () => {
     }
   };
 
+  const prevPage = () => {
+    navigate('/');
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 550);
+  }, []);
+
   return (
     <SearchTestBlock>
-      <h1>병의원 검색 - Logic Test</h1>
+      <div className="header-wrap">
+        <h1>병의원 검색 Logic</h1>
+        <div className="area-info">
+          서울시 강서구 <img src={Change} alt="change" onClick={prevPage} />
+        </div>
+      </div>
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
           value={value}
           onChange={onChangeInput}
           placeholder="병원명을 입력하세요."
+          ref={inputRef}
         />
         <button className="search">검색</button>
       </form>

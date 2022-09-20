@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
 import expand from '../assets/expand.svg';
-import { main, sub } from '../assets/area';
+import { sido, sggu, sgguCode } from '../assets/areaData';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -80,8 +80,8 @@ const HomeBlock = styled.div`
   form {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
-    padding: 10px;
+    margin-bottom: 10px;
+    padding: 0 10px 10px 10px;
     gap: 10px;
     input {
       flex: 4;
@@ -328,6 +328,7 @@ const Home = () => {
   const [isActiveHos, setActiveHos] = useState(!isActiveArea);
   const [mainArea, setMainArea] = useState();
   const [subArea, setSubArea] = useState();
+  const [areaCode, setAreaCode] = useState();
 
   const [loading, setLoading] = useState(false);
 
@@ -348,16 +349,19 @@ const Home = () => {
   const onSelectMain = (e) => {
     setMainArea(e.target.value);
     // 세종시 예외처리
-    if (e.target.value === '세종특별자치시') {
+    if (e.target.value === '세종시') {
       setActiveArea(false);
       setActiveHos(true);
-      setSubArea('-');
+      setSubArea('세종시');
     }
   };
 
   const onSelectSub = (e) => {
     // setSubArea
-    setSubArea(e.target.value);
+    const sgguName = e.target.value;
+    setSubArea(sgguName);
+    const sidoIndex = sido.indexOf(mainArea);
+    setAreaCode(sgguCode[sidoIndex][sggu[sidoIndex].indexOf(sgguName)]); // 지역코드 설정
 
     // setActive - 아코디언 닫기
     setActiveArea(false);
@@ -369,8 +373,13 @@ const Home = () => {
     setInput('');
     setSearch('');
     setHospital('');
-    if (inputRef.current) inputRef.current.focus();
   }, [subArea]);
+
+  useEffect(() => {
+    if (areaCode) {
+      console.log(areaCode);
+    }
+  }, [areaCode]);
 
   const onSelectHos = (e) => {
     // 둘다 active 꺼버림
@@ -421,7 +430,7 @@ const Home = () => {
         <title>step 1 - 병의원찾기</title>
       </Helmet>
       <HomeBlock>
-        <h1 onClick={nextPage}>병의원 찾기 - test</h1>
+        <h1>병의원 찾기 - test</h1>
         <div className="button-area">
           <button
             className="next"
@@ -438,7 +447,7 @@ const Home = () => {
           1/ 지역 선택
           {!isActiveArea && mainArea && subArea && (
             <span className="area-info">{`${mainArea} ${
-              subArea === '-' ? '' : subArea
+              subArea === '세종시' ? '' : subArea
             }`}</span>
           )}
         </h3>{' '}
@@ -454,7 +463,7 @@ const Home = () => {
               <option disabled value="ph">
                 시/도 선택
               </option>
-              {main.map((m, i) => (
+              {sido.map((m, i) => (
                 <option value={m} key={`main-${i}`}>
                   {m}
                 </option>
@@ -471,7 +480,7 @@ const Home = () => {
                 시/군/구 선택
               </option>
               {mainArea &&
-                sub[main.indexOf(mainArea)].map((s, i) => (
+                sggu[sido.indexOf(mainArea)].map((s, i) => (
                   <option value={s} key={`sub-${i}`}>
                     {s}
                   </option>
@@ -497,10 +506,11 @@ const Home = () => {
                 value={input}
                 onChange={onChangeInput}
                 ref={inputRef}
+                onClick={nextPage}
               />
               <button>검색</button>
             </form>
-            {search && (
+            {/* {search && (
               <div className="search-result">
                 <div className="hos-info">
                   <div className="name-wrap">
@@ -597,7 +607,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         )}
       </HomeBlock>
