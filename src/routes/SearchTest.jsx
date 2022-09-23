@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from '../../node_modules/axios/index';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
@@ -82,6 +82,7 @@ const SearchTestBlock = styled.div`
     overflow: auto;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
+    min-height: 515px;
   }
 
   .loading {
@@ -93,6 +94,7 @@ const SearchTestBlock = styled.div`
     background-color: #fff;
     width: 100%;
     height: 100%;
+
     // 굳이 안가려져도 되는건지?
 
     .loadingio-spinner-ellipsis-e4bv9du3r5h {
@@ -240,7 +242,6 @@ const SearchTestBlock = styled.div`
 
 const SearchTest = () => {
   const navigate = useNavigate();
-  const inputRef = useRef();
 
   const [value, setValue] = useState('');
   const [datas, setDatas] = useState(null);
@@ -267,9 +268,9 @@ const SearchTest = () => {
   // }, []);
 
   const getAPIrequest = async () => {
-    console.log('api GET 요청');
-    setLoading(true);
     try {
+      console.log('api GET 요청');
+      setLoading(true);
       const hosList = await axios.get(
         'https://22144ce6-c7da-4ad3-ab85-ce22c7ae5b8a.mock.pstmn.io/search',
         // API 호출 - 병원정보
@@ -296,6 +297,7 @@ const SearchTest = () => {
 
   const onSelectHos = (registered) => {
     if (registered) alert('이미 등록된 병원입니다.');
+    // 모달 띄우기로 변경하기 ->
     else {
       console.log('등록 가능 - 사진 등록 페이지로 이동');
       navigate('/upload');
@@ -324,7 +326,6 @@ const SearchTest = () => {
           value={value}
           onChange={onChangeInput}
           placeholder="병원명을 입력하세요."
-          ref={inputRef}
         />
         <button className="search">검색</button>
       </form>

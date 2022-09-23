@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import { Helmet } from 'react-helmet-async';
 import expand from '../assets/expand.svg';
-import { sido, sggu, sgguCode } from '../assets/areaData';
+import { sido, sggu, sgguCode, sidoCode } from '../assets/areaData';
 
 const HomeBlock = styled.div`
   .button-area {
@@ -326,11 +326,11 @@ const Home = () => {
 
   const [isActiveArea, setActiveArea] = useState(true);
   const [isActiveHos, setActiveHos] = useState(!isActiveArea);
-  const [mainArea, setMainArea] = useState();
-  const [subArea, setSubArea] = useState();
-  const [areaCode, setAreaCode] = useState();
 
-  const [loading, setLoading] = useState(false);
+  const [mainArea, setMainArea] = useState(); // redux - area.js
+  const [subArea, setSubArea] = useState(); // redux - area.js
+  const [mainAreaCode, setMainAreaCode] = useState(); // redux - area.js
+  const [subAreaCode, setSubAreaCode] = useState(); // redux - area.js
 
   const [input, setInput] = useState('');
   const [search, setSearch] = useState('');
@@ -347,7 +347,9 @@ const Home = () => {
   };
 
   const onSelectMain = (e) => {
-    setMainArea(e.target.value);
+    const sidoName = e.target.value;
+    setMainArea(sidoName);
+    setMainAreaCode(sidoCode[sido.indexOf(sidoName)]);
     // 세종시 예외처리
     if (e.target.value === '세종시') {
       setActiveArea(false);
@@ -361,7 +363,7 @@ const Home = () => {
     const sgguName = e.target.value;
     setSubArea(sgguName);
     const sidoIndex = sido.indexOf(mainArea);
-    setAreaCode(sgguCode[sidoIndex][sggu[sidoIndex].indexOf(sgguName)]); // 지역코드 설정
+    setSubAreaCode(sgguCode[sidoIndex][sggu[sidoIndex].indexOf(sgguName)]); // 지역코드 설정
 
     // setActive - 아코디언 닫기
     setActiveArea(false);
@@ -376,19 +378,25 @@ const Home = () => {
   }, [subArea]);
 
   useEffect(() => {
-    if (areaCode) {
-      console.log(areaCode);
+    if (subAreaCode) {
+      console.log(subAreaCode);
     }
-  }, [areaCode]);
+  }, [subAreaCode]);
 
-  const onSelectHos = (e) => {
-    // 둘다 active 꺼버림
-    setActiveArea(false);
-    setActiveHos(false);
-    const innerT = e.target.parentNode.innerText;
-    const hosName = innerT.slice(0, innerT.indexOf('\n'));
-    setHospital(hosName);
-  };
+  useEffect(() => {
+    if (mainAreaCode) {
+      console.log(mainAreaCode);
+    }
+  }, [mainAreaCode]);
+
+  // const onSelectHos = (e) => {
+  //   // 둘다 active 꺼버림
+  //   setActiveArea(false);
+  //   setActiveHos(false);
+  //   const innerT = e.target.parentNode.innerText;
+  //   const hosName = innerT.slice(0, innerT.indexOf('\n'));
+  //   setHospital(hosName);
+  // };
 
   const onChangeInput = (e) => {
     setInput(e.target.value);
@@ -401,7 +409,6 @@ const Home = () => {
       alert('최소 2자 입력하세요');
       return;
     }
-    setLoading(true);
     getLoading();
     // 만약 search가 ''이면 ->
   };
@@ -411,7 +418,6 @@ const Home = () => {
     setTimeout(() => {
       console.log('api 요청');
       setSearch(input);
-      setLoading(false);
       // search가 ''이면 에러창 띄우기
     }, 1200);
   };
@@ -510,104 +516,6 @@ const Home = () => {
               />
               <button>검색</button>
             </form>
-            {/* {search && (
-              <div className="search-result">
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 내과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 피부과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정형외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정형외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정형외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정형외과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 치과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-                <div className="hos-info">
-                  <div className="name-wrap">
-                    아프지마 정신과
-                    <span className="address">
-                      서울시 강서구 강서동 123-4567
-                    </span>
-                  </div>
-                  <button onClick={onSelectHos}>선택</button>
-                </div>
-              </div>
-            )}
-            {loading && (
-              <div className="loading">
-                <div className="loadingio-spinner-ellipsis-e4bv9du3r5h">
-                  <div className="ldio-s90hw9ncs7a">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </div>
-              </div>
-            )} */}
           </div>
         )}
       </HomeBlock>
