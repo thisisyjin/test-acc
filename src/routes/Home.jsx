@@ -319,7 +319,7 @@ const HomeBlock = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = ({ history, location }) => {
   const navigate = useNavigate();
 
   const inputRef = useRef(null);
@@ -388,6 +388,10 @@ const Home = () => {
       console.log(mainAreaCode);
     }
   }, [mainAreaCode]);
+
+  useEffect(() => {
+    console.log(navigate);
+  }, [navigate]);
 
   // const onSelectHos = (e) => {
   //   // 둘다 active 꺼버림

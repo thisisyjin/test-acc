@@ -4,6 +4,7 @@ import axios from '../../node_modules/axios/index';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 
 import Change from '../assets/change.svg';
+import IsRegisterModal from '../components/IsRegisterModal';
 
 const SearchTestBlock = styled.div`
   background-color: #fff;
@@ -56,6 +57,7 @@ const SearchTestBlock = styled.div`
     gap: 10px;
     padding: 10px 0;
   }
+
   input {
     font-size: 16px;
     display: block;
@@ -63,11 +65,9 @@ const SearchTestBlock = styled.div`
     border: none;
     background-color: #eee;
     border-radius: 4px;
-    padding: 12px 20px;
-    &:focus {
-      background-color: #f4f2e0;
-    }
+    padding: 12px 18px;
   }
+
   button.search {
     flex: 1;
     display: block;
@@ -249,6 +249,8 @@ const SearchTest = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [isVisible, setIsVisible] = useState(false);
+
   const onChangeInput = (e) => {
     setValue(e.target.value);
   };
@@ -296,7 +298,9 @@ const SearchTest = () => {
   }, [datas]);
 
   const onSelectHos = (registered) => {
-    if (registered) alert('이미 등록된 병원입니다.');
+    if (registered) {
+      setIsVisible(true);
+    }
     // 모달 띄우기로 변경하기 ->
     else {
       console.log('등록 가능 - 사진 등록 페이지로 이동');
@@ -310,6 +314,10 @@ const SearchTest = () => {
 
   const goTestPage = () => {
     navigate('/typo');
+  };
+
+  const onCloseModal = () => {
+    setIsVisible(false);
   };
 
   return (
@@ -360,6 +368,7 @@ const SearchTest = () => {
           </div>
         )}
       </div>
+      {isVisible && <IsRegisterModal onCloseModal={onCloseModal} />}
     </SearchTestBlock>
   );
 };
